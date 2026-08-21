@@ -1,0 +1,308 @@
+.app {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 6vh 6vw;
+  overflow: hidden;
+  transition: background 0.6s ease;
+}
+
+.sky-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.sky-background svg {
+  display: block;
+}
+
+/* ---------- motif animations ---------- */
+.stars circle {
+  animation: twinkle 2.6s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 1; }
+}
+
+.drifting-clouds .cloud-a {
+  animation: drift 42s linear infinite;
+}
+
+.drifting-clouds .cloud-b {
+  animation: drift 60s linear infinite;
+  animation-delay: -12s;
+}
+
+@keyframes drift {
+  from { transform: translate(-10%, var(--cloud-y, 22%)); }
+  to { transform: translate(110%, var(--cloud-y, 22%)); }
+}
+
+.rain line {
+  animation: fall 0.9s linear infinite;
+}
+
+@keyframes fall {
+  from { transform: translateY(0); opacity: 0.9; }
+  to { transform: translateY(60vh); opacity: 0.15; }
+}
+
+.snow circle {
+  animation: drift-down linear infinite;
+}
+
+@keyframes drift-down {
+  from { transform: translate(0, 0); opacity: 0.9; }
+  to { transform: translate(6%, 70vh); opacity: 0.3; }
+}
+
+/* ---------- instrument panel ---------- */
+.panel {
+  position: relative;
+  z-index: 1;
+  width: min(420px, 100%);
+  margin-inline: auto;
+  background: rgba(238, 241, 246, 0.86);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 18px;
+  padding: 2rem;
+  box-shadow: 0 30px 60px -30px rgba(19, 26, 43, 0.45);
+}
+
+.eyebrow {
+  margin: 0 0 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--storm);
+}
+
+/* ---------- search ---------- */
+.search-bar {
+  margin-bottom: 1.5rem;
+}
+
+.search-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--storm);
+  margin-bottom: 0.5rem;
+}
+
+.search-row {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-end;
+}
+
+.search-row input {
+  flex: 1;
+  border: none;
+  border-bottom: 2px solid var(--mist-dim);
+  background: transparent;
+  padding: 0.5rem 0.1rem;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--ink);
+  transition: border-color 0.2s ease;
+}
+
+.search-row input::placeholder {
+  color: var(--storm);
+  opacity: 0.6;
+  font-family: var(--font-body);
+  font-size: 1rem;
+}
+
+.search-row input:focus {
+  border-bottom-color: var(--rain);
+}
+
+.search-row button {
+  border: none;
+  background: var(--ink);
+  color: var(--mist);
+  padding: 0.6rem 1.1rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+  white-space: nowrap;
+}
+
+.search-row button:hover:not(:disabled) {
+  background: var(--rain);
+}
+
+.search-row button:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+/* ---------- states ---------- */
+.panel__result {
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+}
+
+.panel-state {
+  width: 100%;
+  text-align: center;
+  padding: 1.5rem 0.5rem;
+  color: var(--storm);
+}
+
+.panel-state--error {
+  color: var(--clay);
+}
+
+.error-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 0.3rem;
+  color: var(--ink);
+}
+
+.panel-state--idle .idle-hint {
+  font-size: 0.9rem;
+}
+
+.loading-dial {
+  width: 34px;
+  height: 34px;
+  margin: 0 auto 0.75rem;
+  border-radius: 50%;
+  border: 3px solid var(--mist-dim);
+  border-top-color: var(--rain);
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---------- weather card ---------- */
+.weather-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.weather-card__header h1 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.country {
+  font-weight: 400;
+  color: var(--storm);
+  font-size: 1rem;
+}
+
+.reading-time {
+  margin: 0.2rem 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--storm);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.weather-card__icon {
+  width: 44px;
+  height: 44px;
+  color: var(--rain);
+  flex-shrink: 0;
+}
+
+.temperature-block {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin: 1.25rem 0 1.5rem;
+}
+
+.temperature {
+  font-family: var(--font-display);
+  font-size: 4.2rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.condition {
+  margin: 0;
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+.feels-like {
+  margin: 0.2rem 0 0;
+  font-size: 0.85rem;
+  color: var(--storm);
+}
+
+.readout-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 1.5rem;
+  margin: 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--mist-dim);
+}
+
+.readout dt {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--storm);
+  margin-bottom: 0.2rem;
+}
+
+.readout dd {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  color: var(--ink);
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 520px) {
+  .app {
+    padding: 5vh 5vw;
+    align-items: flex-start;
+  }
+
+  .panel {
+    padding: 1.5rem;
+    margin-top: 4vh;
+  }
+
+  .temperature {
+    font-size: 3.4rem;
+  }
+
+  .search-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-row button {
+    width: 100%;
+  }
+}
